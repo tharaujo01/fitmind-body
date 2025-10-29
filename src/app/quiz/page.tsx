@@ -719,6 +719,390 @@ export default function QuizPage() {
     }
   };
 
+  const handleFitMindBodyChoice = () => {
+    const currentQuestion = questions[currentStep];
+    
+    // Criar dieta baseada nas respostas do quiz
+    const dietPlan = createDietBasedOnQuizAnswers(quizData);
+    
+    const newData = { 
+      ...quizData, 
+      [currentQuestion.id]: dietPlan,
+      dietCreatedBy: 'FitMindBody'
+    };
+    
+    setQuizData(newData);
+    
+    if (currentQuestion.macronutrientsWebhook) {
+      setMacronutrientsWebhookData(currentQuestion.macronutrientsWebhook);
+      setShowMacronutrientsWebhook(true);
+    } else {
+      handleNext(newData);
+    }
+  };
+
+  const createDietBasedOnQuizAnswers = (answers) => {
+    // Criar plano alimentar baseado nas respostas do quiz
+    const dietPlan = {
+      Leguminosas: [],
+      Cereais: [],
+      Ingredientes: [],
+      'Carne e Peixe (Opcional)': [],
+      'Frutas e Bagas (Opcional)': []
+    };
+
+    // Baseado no objetivo
+    if (answers.goal === 'Ganhar Massa Muscular' || answers.goal === 'Ficar Musculoso') {
+      dietPlan.Ingredientes.push('Ovos', 'Proteína em pó', 'Leite');
+      dietPlan['Carne e Peixe (Opcional)'].push('Frango', 'Peixe', 'Carne Bovina');
+      dietPlan.Cereais.push('Arroz', 'Quinoa', 'Aveia');
+    } else if (answers.goal === 'Perder peso') {
+      dietPlan.Leguminosas.push('Brócolis', 'Espinafre', 'Couve-flor', 'Pepino');
+      dietPlan.Ingredientes.push('Ovos', 'Proteína em pó');
+      dietPlan['Frutas e Bagas (Opcional)'].push('Maçã', 'Bagas', 'Citrinos');
+    }
+
+    // Baseado na dieta seguida
+    if (answers.diet?.includes('Vegetariano')) {
+      dietPlan.Ingredientes.push('Tofu', 'Feijão', 'Húmus');
+      dietPlan.Cereais.push('Quinoa', 'Amaranto');
+    } else if (answers.diet?.includes('Vegano')) {
+      dietPlan.Ingredientes.push('Tofu', 'Proteína vegana em pó', 'Leite vegetal');
+      dietPlan.Cereais.push('Quinoa', 'Amaranto', 'Trigo-sarraceno');
+    } else if (answers.diet?.includes('Cetogênica')) {
+      dietPlan.Ingredientes.push('Abacate', 'Ovos', 'Queijo');
+      dietPlan['Carne e Peixe (Opcional)'].push('Carne Bovina', 'Peixe', 'Carne de porco');
+    }
+
+    // Adicionar alimentos básicos saudáveis
+    dietPlan.Leguminosas.push('Brócolis', 'Tomate', 'Cebola');
+    dietPlan.Cereais.push('Arroz', 'Quinoa');
+    dietPlan.Ingredientes.push('Ovos', 'Cogumelos');
+    dietPlan['Frutas e Bagas (Opcional)'].push('Bananas', 'Maçã');
+
+    return dietPlan;
+  };
+
+  const handleFitMindBodyChoice = () => {
+    const currentQuestion = questions[currentStep];
+    
+    // Criar dieta baseada nas respostas do quiz
+    const dietPlan = createDietBasedOnQuizAnswers(quizData);
+    
+    const newData = { 
+      ...quizData, 
+      [currentQuestion.id]: dietPlan,
+      dietCreatedBy: 'FitMindBody'
+    };
+    
+    setQuizData(newData);
+    
+    if (currentQuestion.macronutrientsWebhook) {
+      setMacronutrientsWebhookData(currentQuestion.macronutrientsWebhook);
+      setShowMacronutrientsWebhook(true);
+    } else {
+      handleNext(newData);
+    }
+  };
+
+  const createDietBasedOnQuizAnswers = (answers) => {
+    // Criar plano alimentar baseado nas respostas do quiz
+    const dietPlan = {
+      Leguminosas: [],
+      Cereais: [],
+      Ingredientes: [],
+      'Carne e Peixe (Opcional)': [],
+      'Frutas e Bagas (Opcional)': []
+    };
+
+    // Baseado no objetivo
+    if (answers.goal === 'Ganhar Massa Muscular' || answers.goal === 'Ficar Musculoso') {
+      dietPlan.Ingredientes.push('Ovos', 'Proteína em pó', 'Leite');
+      dietPlan['Carne e Peixe (Opcional)'].push('Frango', 'Peixe', 'Carne Bovina');
+      dietPlan.Cereais.push('Arroz', 'Quinoa', 'Aveia');
+    } else if (answers.goal === 'Perder peso') {
+      dietPlan.Leguminosas.push('Brócolis', 'Espinafre', 'Couve-flor', 'Pepino');
+      dietPlan.Ingredientes.push('Ovos', 'Proteína em pó');
+      dietPlan['Frutas e Bagas (Opcional)'].push('Maçã', 'Bagas', 'Citrinos');
+    }
+
+    // Baseado na dieta seguida
+    if (answers.diet?.includes('Vegetariano')) {
+      dietPlan.Ingredientes.push('Tofu', 'Feijão', 'Húmus');
+      dietPlan.Cereais.push('Quinoa', 'Amaranto');
+    } else if (answers.diet?.includes('Vegano')) {
+      dietPlan.Ingredientes.push('Tofu', 'Proteína vegana em pó', 'Leite vegetal');
+      dietPlan.Cereais.push('Quinoa', 'Amaranto', 'Trigo-sarraceno');
+    } else if (answers.diet?.includes('Cetogênica')) {
+      dietPlan.Ingredientes.push('Abacate', 'Ovos', 'Queijo');
+      dietPlan['Carne e Peixe (Opcional)'].push('Carne Bovina', 'Peixe', 'Carne de porco');
+    }
+
+    // Adicionar alimentos básicos saudáveis
+    dietPlan.Leguminosas.push('Brócolis', 'Tomate', 'Cebola');
+    dietPlan.Cereais.push('Arroz', 'Quinoa');
+    dietPlan.Ingredientes.push('Ovos', 'Cogumelos');
+    dietPlan['Frutas e Bagas (Opcional)'].push('Bananas', 'Maçã');
+
+    return dietPlan;
+  };
+
+  const handleFitMindBodyChoice = () => {
+    const currentQuestion = questions[currentStep];
+    
+    // Criar dieta baseada nas respostas do quiz
+    const dietPlan = createDietBasedOnQuizAnswers(quizData);
+    
+    const newData = { 
+      ...quizData, 
+      [currentQuestion.id]: dietPlan,
+      dietCreatedBy: 'FitMindBody'
+    };
+    
+    setQuizData(newData);
+    
+    if (currentQuestion.macronutrientsWebhook) {
+      setMacronutrientsWebhookData(currentQuestion.macronutrientsWebhook);
+      setShowMacronutrientsWebhook(true);
+    } else {
+      handleNext(newData);
+    }
+  };
+
+  const createDietBasedOnQuizAnswers = (answers) => {
+    // Criar plano alimentar baseado nas respostas do quiz
+    const dietPlan = {
+      Leguminosas: [],
+      Cereais: [],
+      Ingredientes: [],
+      'Carne e Peixe (Opcional)': [],
+      'Frutas e Bagas (Opcional)': []
+    };
+
+    // Baseado no objetivo
+    if (answers.goal === 'Ganhar Massa Muscular' || answers.goal === 'Ficar Musculoso') {
+      dietPlan.Ingredientes.push('Ovos', 'Proteína em pó', 'Leite');
+      dietPlan['Carne e Peixe (Opcional)'].push('Frango', 'Peixe', 'Carne Bovina');
+      dietPlan.Cereais.push('Arroz', 'Quinoa', 'Aveia');
+    } else if (answers.goal === 'Perder peso') {
+      dietPlan.Leguminosas.push('Brócolis', 'Espinafre', 'Couve-flor', 'Pepino');
+      dietPlan.Ingredientes.push('Ovos', 'Proteína em pó');
+      dietPlan['Frutas e Bagas (Opcional)'].push('Maçã', 'Bagas', 'Citrinos');
+    }
+
+    // Baseado na dieta seguida
+    if (answers.diet?.includes('Vegetariano')) {
+      dietPlan.Ingredientes.push('Tofu', 'Feijão', 'Húmus');
+      dietPlan.Cereais.push('Quinoa', 'Amaranto');
+    } else if (answers.diet?.includes('Vegano')) {
+      dietPlan.Ingredientes.push('Tofu', 'Proteína vegana em pó', 'Leite vegetal');
+      dietPlan.Cereais.push('Quinoa', 'Amaranto', 'Trigo-sarraceno');
+    } else if (answers.diet?.includes('Cetogênica')) {
+      dietPlan.Ingredientes.push('Abacate', 'Ovos', 'Queijo');
+      dietPlan['Carne e Peixe (Opcional)'].push('Carne Bovina', 'Peixe', 'Carne de porco');
+    }
+
+    // Adicionar alimentos básicos saudáveis
+    dietPlan.Leguminosas.push('Brócolis', 'Tomate', 'Cebola');
+    dietPlan.Cereais.push('Arroz', 'Quinoa');
+    dietPlan.Ingredientes.push('Ovos', 'Cogumelos');
+    dietPlan['Frutas e Bagas (Opcional)'].push('Bananas', 'Maçã');
+
+    return dietPlan;
+  };
+
+  const handleFitMindBodyChoice = () => {
+    const currentQuestion = questions[currentStep];
+    
+    // Criar dieta baseada nas respostas do quiz
+    const dietPlan = createDietBasedOnQuizAnswers(quizData);
+    
+    const newData = { 
+      ...quizData, 
+      [currentQuestion.id]: dietPlan,
+      dietCreatedBy: 'FitMindBody'
+    };
+    
+    setQuizData(newData);
+    
+    if (currentQuestion.macronutrientsWebhook) {
+      setMacronutrientsWebhookData(currentQuestion.macronutrientsWebhook);
+      setShowMacronutrientsWebhook(true);
+    } else {
+      handleNext(newData);
+    }
+  };
+
+  const createDietBasedOnQuizAnswers = (answers) => {
+    // Criar plano alimentar baseado nas respostas do quiz
+    const dietPlan = {
+      Leguminosas: [],
+      Cereais: [],
+      Ingredientes: [],
+      'Carne e Peixe (Opcional)': [],
+      'Frutas e Bagas (Opcional)': []
+    };
+
+    // Baseado no objetivo
+    if (answers.goal === 'Ganhar Massa Muscular' || answers.goal === 'Ficar Musculoso') {
+      dietPlan.Ingredientes.push('Ovos', 'Proteína em pó', 'Leite');
+      dietPlan['Carne e Peixe (Opcional)'].push('Frango', 'Peixe', 'Carne Bovina');
+      dietPlan.Cereais.push('Arroz', 'Quinoa', 'Aveia');
+    } else if (answers.goal === 'Perder peso') {
+      dietPlan.Leguminosas.push('Brócolis', 'Espinafre', 'Couve-flor', 'Pepino');
+      dietPlan.Ingredientes.push('Ovos', 'Proteína em pó');
+      dietPlan['Frutas e Bagas (Opcional)'].push('Maçã', 'Bagas', 'Citrinos');
+    }
+
+    // Baseado na dieta seguida
+    if (answers.diet?.includes('Vegetariano')) {
+      dietPlan.Ingredientes.push('Tofu', 'Feijão', 'Húmus');
+      dietPlan.Cereais.push('Quinoa', 'Amaranto');
+    } else if (answers.diet?.includes('Vegano')) {
+      dietPlan.Ingredientes.push('Tofu', 'Proteína vegana em pó', 'Leite vegetal');
+      dietPlan.Cereais.push('Quinoa', 'Amaranto', 'Trigo-sarraceno');
+    } else if (answers.diet?.includes('Cetogênica')) {
+      dietPlan.Ingredientes.push('Abacate', 'Ovos', 'Queijo');
+      dietPlan['Carne e Peixe (Opcional)'].push('Carne Bovina', 'Peixe', 'Carne de porco');
+    }
+
+    // Adicionar alimentos básicos saudáveis
+    dietPlan.Leguminosas.push('Brócolis', 'Tomate', 'Cebola');
+    dietPlan.Cereais.push('Arroz', 'Quinoa');
+    dietPlan.Ingredientes.push('Ovos', 'Cogumelos');
+    dietPlan['Frutas e Bagas (Opcional)'].push('Bananas', 'Maçã');
+
+    return dietPlan;
+  };
+
+  const handleFitMindBodyChoice = () => {
+    const currentQuestion = questions[currentStep];
+    
+    // Criar dieta baseada nas respostas do quiz
+    const dietPlan = createDietBasedOnQuizAnswers(quizData);
+    
+    const newData = { 
+      ...quizData, 
+      [currentQuestion.id]: dietPlan,
+      dietCreatedBy: 'FitMindBody'
+    };
+    
+    setQuizData(newData);
+    
+    if (currentQuestion.macronutrientsWebhook) {
+      setMacronutrientsWebhookData(currentQuestion.macronutrientsWebhook);
+      setShowMacronutrientsWebhook(true);
+    } else {
+      handleNext(newData);
+    }
+  };
+
+  const createDietBasedOnQuizAnswers = (answers) => {
+    // Criar plano alimentar baseado nas respostas do quiz
+    const dietPlan = {
+      Leguminosas: [],
+      Cereais: [],
+      Ingredientes: [],
+      'Carne e Peixe (Opcional)': [],
+      'Frutas e Bagas (Opcional)': []
+    };
+
+    // Baseado no objetivo
+    if (answers.goal === 'Ganhar Massa Muscular' || answers.goal === 'Ficar Musculoso') {
+      dietPlan.Ingredientes.push('Ovos', 'Proteína em pó', 'Leite');
+      dietPlan['Carne e Peixe (Opcional)'].push('Frango', 'Peixe', 'Carne Bovina');
+      dietPlan.Cereais.push('Arroz', 'Quinoa', 'Aveia');
+    } else if (answers.goal === 'Perder peso') {
+      dietPlan.Leguminosas.push('Brócolis', 'Espinafre', 'Couve-flor', 'Pepino');
+      dietPlan.Ingredientes.push('Ovos', 'Proteína em pó');
+      dietPlan['Frutas e Bagas (Opcional)'].push('Maçã', 'Bagas', 'Citrinos');
+    }
+
+    // Baseado na dieta seguida
+    if (answers.diet?.includes('Vegetariano')) {
+      dietPlan.Ingredientes.push('Tofu', 'Feijão', 'Húmus');
+      dietPlan.Cereais.push('Quinoa', 'Amaranto');
+    } else if (answers.diet?.includes('Vegano')) {
+      dietPlan.Ingredientes.push('Tofu', 'Proteína vegana em pó', 'Leite vegetal');
+      dietPlan.Cereais.push('Quinoa', 'Amaranto', 'Trigo-sarraceno');
+    } else if (answers.diet?.includes('Cetogênica')) {
+      dietPlan.Ingredientes.push('Abacate', 'Ovos', 'Queijo');
+      dietPlan['Carne e Peixe (Opcional)'].push('Carne Bovina', 'Peixe', 'Carne de porco');
+    }
+
+    // Adicionar alimentos básicos saudáveis
+    dietPlan.Leguminosas.push('Brócolis', 'Tomate', 'Cebola');
+    dietPlan.Cereais.push('Arroz', 'Quinoa');
+    dietPlan.Ingredientes.push('Ovos', 'Cogumelos');
+    dietPlan['Frutas e Bagas (Opcional)'].push('Bananas', 'Maçã');
+
+    return dietPlan;
+  };
+
+  const handleFitMindBodyChoice = () => {
+    const currentQuestion = questions[currentStep];
+    
+    // Criar dieta baseada nas respostas do quiz
+    const dietPlan = createDietBasedOnQuizAnswers(quizData);
+    
+    const newData = { 
+      ...quizData, 
+      [currentQuestion.id]: dietPlan,
+      dietCreatedBy: 'FitMindBody'
+    };
+    
+    setQuizData(newData);
+    
+    if (currentQuestion.macronutrientsWebhook) {
+      setMacronutrientsWebhookData(currentQuestion.macronutrientsWebhook);
+      setShowMacronutrientsWebhook(true);
+    } else {
+      handleNext(newData);
+    }
+  };
+
+  const createDietBasedOnQuizAnswers = (answers) => {
+    // Criar plano alimentar baseado nas respostas do quiz
+    const dietPlan = {
+      Leguminosas: [],
+      Cereais: [],
+      Ingredientes: [],
+      'Carne e Peixe (Opcional)': [],
+      'Frutas e Bagas (Opcional)': []
+    };
+
+    // Baseado no objetivo
+    if (answers.goal === 'Ganhar Massa Muscular' || answers.goal === 'Ficar Musculoso') {
+      dietPlan.Ingredientes.push('Ovos', 'Proteína em pó', 'Leite');
+      dietPlan['Carne e Peixe (Opcional)'].push('Frango', 'Peixe', 'Carne Bovina');
+      dietPlan.Cereais.push('Arroz', 'Quinoa', 'Aveia');
+    } else if (answers.goal === 'Perder peso') {
+      dietPlan.Leguminosas.push('Brócolis', 'Espinafre', 'Couve-flor', 'Pepino');
+      dietPlan.Ingredientes.push('Ovos', 'Proteína em pó');
+      dietPlan['Frutas e Bagas (Opcional)'].push('Maçã', 'Bagas', 'Citrinos');
+    }
+
+    // Baseado na dieta seguida
+    if (answers.diet?.includes('Vegetariano')) {
+      dietPlan.Ingredientes.push('Tofu', 'Feijão', 'Húmus');
+      dietPlan.Cereais.push('Quinoa', 'Amaranto');
+    } else if (answers.diet?.includes('Vegano')) {
+      dietPlan.Ingredientes.push('Tofu', 'Proteína vegana em pó', 'Leite vegetal');
+      dietPlan.Cereais.push('Quinoa', 'Amaranto', 'Trigo-sarraceno');
+    } else if (answers.diet?.includes('Cetogênica')) {
+      dietPlan.Ingredientes.push('Abacate', 'Ovos', 'Queijo');
+      dietPlan['Carne e Peixe (Opcional)'].push('Carne Bovina', 'Peixe', 'Carne de porco');
+    }
+
+    // Adicionar alimentos básicos saudáveis
+    dietPlan.Leguminosas.push('Brócolis', 'Tomate', 'Cebola');
+    dietPlan.Cereais.push('Arroz', 'Quinoa');
+    dietPlan.Ingredientes.push('Ovos', 'Cogumelos');
+    dietPlan['Frutas e Bagas (Opcional)'].push('Bananas', 'Maçã');
+
+    return dietPlan;
+  };
+
   const handleFitnessAnalysis = () => {
     setAnalysisProgress(0);
     const interval = setInterval(() => {
@@ -750,10 +1134,10 @@ export default function QuizPage() {
       setCurrentStep(nextStep);
       saveProgress(nextStep, data);
     } else {
-      // Salvar dados do quiz e redirecionar para dashboard
+      // Salvar dados do quiz e redirecionar para página de preços
       localStorage.setItem('userQuizData', JSON.stringify(data));
       localStorage.removeItem('quizProgress');
-      router.push('/dashboard');
+      router.push('/pricing');
     }
   };
 
@@ -1133,7 +1517,10 @@ export default function QuizPage() {
           {currentQuestion.type === 'food-selection' && (
             <>
               <div className="mb-6 text-center">
-                <button className="px-6 py-3 bg-gradient-to-r from-[#FF4D22] to-[#FF6B47] text-white rounded-xl font-semibold hover:from-[#FF6B47] hover:to-[#FF4D22] transition-all duration-300 transform hover:scale-105 shadow-lg">
+                <button 
+                  onClick={() => handleFitMindBodyChoice()}
+                  className="px-6 py-3 bg-gradient-to-r from-[#FF4D22] to-[#FF6B47] text-white rounded-xl font-semibold hover:from-[#FF6B47] hover:to-[#FF4D22] transition-all duration-300 transform hover:scale-105 shadow-lg"
+                >
                   Deixe FitMind Body escolher
                 </button>
                 <p className="text-sm text-gray-600 mt-2">Criamos um plano alimentar equilibrado para você, que fornece os nutrientes que seu corpo precisa para se exercitar de maneira eficaz</p>
@@ -1380,11 +1767,7 @@ export default function QuizPage() {
               </div>
               
               <button
-                onClick={() => {
-                  // Salvar dados do quiz antes de ir para pricing
-                  localStorage.setItem('userQuizData', JSON.stringify(quizData));
-                  router.push('/pricing');
-                }}
+                onClick={() => router.push('/pricing')}
                 className="w-full p-4 bg-gradient-to-r from-[#FF4D22] to-[#FF6B47] text-white rounded-xl font-bold text-lg hover:from-[#FF6B47] hover:to-[#FF4D22] transition-all duration-300 transform hover:scale-105 shadow-lg"
               >
                 OBTER MEU PLANO

@@ -12,11 +12,6 @@ export default function HomePage() {
     setIsLoading(true);
     console.log('event: start_quiz'); // Rastreamento de evento
 
-    // Limpar dados anteriores do quiz
-    localStorage.removeItem('userQuizData');
-    localStorage.removeItem('selectedPlan');
-    localStorage.removeItem('quizProgress');
-
     // Pequeno delay para mostrar loading
     setTimeout(() => {
       router.push('/quiz');
