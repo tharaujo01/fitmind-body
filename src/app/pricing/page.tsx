@@ -1,7 +1,6 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { useRouter } from 'next/navigation';
 import { Check, Star, Trophy, Zap, Crown, Gift } from 'lucide-react';
 
 const plans = [
@@ -92,9 +91,7 @@ const plans = [
 ];
 
 export default function PricingPage() {
-  const [selectedPlan, setSelectedPlan] = useState('monthly');
   const [quizData, setQuizData] = useState(null);
-  const router = useRouter();
 
   useEffect(() => {
     // Carregar dados do quiz
@@ -103,22 +100,6 @@ export default function PricingPage() {
       setQuizData(JSON.parse(savedQuizData));
     }
   }, []);
-
-  const handlePlanSelection = (planId: string) => {
-    const plan = plans.find(p => p.id === planId);
-    if (plan) {
-      // Salvar plano selecionado
-      localStorage.setItem('selectedPlan', JSON.stringify(plan));
-      
-      // Redirecionar para Kiwify
-      window.open(plan.kiwifyUrl, '_blank');
-      
-      // Aguardar um pouco e redirecionar para dashboard
-      setTimeout(() => {
-        router.push('/dashboard');
-      }, 2000);
-    }
-  };
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-[#1C0632] via-[#2D0A4A] to-[#FF4D22] py-12 px-4">
@@ -208,12 +189,14 @@ export default function PricingPage() {
               </div>
 
               {/* CTA Button */}
-              <button
-                onClick={() => handlePlanSelection(plan.id)}
-                className={`w-full p-4 bg-gradient-to-r ${plan.color} text-white rounded-xl font-bold hover:shadow-lg transition-all duration-300 transform hover:scale-105`}
+              <a
+                href={plan.kiwifyUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className={`block w-full p-4 bg-gradient-to-r ${plan.color} text-white rounded-xl font-bold hover:shadow-lg transition-all duration-300 transform hover:scale-105 text-center no-underline`}
               >
-                Escolher Plano
-              </button>
+                Obter meu plano
+              </a>
             </div>
           ))}
         </div>
@@ -261,12 +244,14 @@ export default function PricingPage() {
               <div className="text-4xl font-bold text-white mb-2">100</div>
               <div className="text-white/80 mb-4">Créditos</div>
               <div className="text-2xl font-bold text-[#FF4D22] mb-4">R$ 29,90</div>
-              <button
-                onClick={() => window.open('https://pay.kiwify.com.br/k88c9zn', '_blank')}
-                className="w-full p-3 bg-gradient-to-r from-[#FF4D22] to-[#FF6B47] text-white rounded-xl font-bold hover:shadow-lg transition-all duration-300"
+              <a
+                href="https://pay.kiwify.com.br/k88c9zn"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="block w-full p-3 bg-gradient-to-r from-[#FF4D22] to-[#FF6B47] text-white rounded-xl font-bold hover:shadow-lg transition-all duration-300 text-center no-underline"
               >
                 Comprar Créditos
-              </button>
+              </a>
             </div>
           </div>
         </div>
