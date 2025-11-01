@@ -1,37 +1,63 @@
 import { createClient } from '@supabase/supabase-js'
 
-const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!
-const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
+const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL
+const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
+
+if (!supabaseUrl || !supabaseAnonKey) {
+  throw new Error('Missing Supabase environment variables')
+}
 
 export const supabase = createClient(supabaseUrl, supabaseAnonKey)
 
-// Tipos para o banco de dados
-export interface UserProfile {
-  id: string
-  name: string
-  email: string
-  birth_date?: string
-  profile_image?: string
-  created_at: string
-  updated_at: string
+// Função para atualizar status do usuário após pagamento
+export const updateUserSubscription = async (userId: string, planId: string) => {
+  const { data, error } = await supabase
+    .from('users')
+    .update({ 
+      subscription_plan: planId,
+      subscription_status: 'active',
+      updated_at: new Date().toISOString()
+    })
+    .eq('id', userId)
+
+  if (error) {
+    console.error('Error updating user subscription:', error)
+    return { success: false, error }
+  }
+
+  return { success: true, data }
 }
 
-export interface UserStats {
-  id: string
-  user_id: string
-  workouts_completed: number
-  total_points: number
-  current_streak: number
-  total_calories: number
-  created_at: string
-  updated_at: string
+// Função para verificar status da assinatura
+export const getUserSubscription = async (userId: string) => {
+  const { data, error } = await supabase
+    .from('users')
+    .select('subscription_plan, subscription_status, credits')
+    .eq('id', userId)
+    .single()
+
+  if (error) {
+    console.error('Error fetching user subscription:', error)
+    return { success: false, error }
+  }
+
+  return { success: true, data }
 }
 
-export interface WorkoutHistory {
-  id: string
-  user_id: string
-  exercise_name: string
-  points_earned: number
-  calories_burned: number
-  completed_at: string
+// Função para adicionar créditos ao usuário
+export const addUserCredits = async (userId: string, credits: number) => {
+  const { data, error } = await supabase
+    .from('users')
+    .update({ 
+      credits: credits,
+      updated_at: new Date().toISOString()
+    })
+    .eq('id', userId)
+
+  if (error) {
+    console.error('Error adding user credits:', error)
+    return { success: false, error }
+  }
+
+  return { success: true, data }
 }

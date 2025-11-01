@@ -101,6 +101,16 @@ export default function PricingPage() {
     }
   }, []);
 
+  const handlePlanClick = (kiwifyUrl) => {
+    // Abrir link externo da Kiwify em nova aba
+    window.open(kiwifyUrl, '_blank', 'noopener,noreferrer');
+  };
+
+  const handleCreditsClick = () => {
+    // Abrir link de compra de créditos
+    window.open('https://pay.kiwify.com.br/k88c9zn', '_blank', 'noopener,noreferrer');
+  };
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-[#1C0632] via-[#2D0A4A] to-[#FF4D22] py-12 px-4">
       <div className="max-w-7xl mx-auto">
@@ -189,14 +199,12 @@ export default function PricingPage() {
               </div>
 
               {/* CTA Button */}
-              <a
-                href={plan.kiwifyUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className={`block w-full p-4 bg-gradient-to-r ${plan.color} text-white rounded-xl font-bold hover:shadow-lg transition-all duration-300 transform hover:scale-105 text-center no-underline`}
+              <button
+                onClick={() => handlePlanClick(plan.kiwifyUrl)}
+                className={`block w-full p-4 bg-gradient-to-r ${plan.color} text-white rounded-xl font-bold hover:shadow-lg transition-all duration-300 transform hover:scale-105 text-center cursor-pointer`}
               >
                 Obter meu plano
-              </a>
+              </button>
             </div>
           ))}
         </div>
@@ -244,14 +252,12 @@ export default function PricingPage() {
               <div className="text-4xl font-bold text-white mb-2">100</div>
               <div className="text-white/80 mb-4">Créditos</div>
               <div className="text-2xl font-bold text-[#FF4D22] mb-4">R$ 29,90</div>
-              <a
-                href="https://pay.kiwify.com.br/k88c9zn"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="block w-full p-3 bg-gradient-to-r from-[#FF4D22] to-[#FF6B47] text-white rounded-xl font-bold hover:shadow-lg transition-all duration-300 text-center no-underline"
+              <button
+                onClick={handleCreditsClick}
+                className="block w-full p-3 bg-gradient-to-r from-[#FF4D22] to-[#FF6B47] text-white rounded-xl font-bold hover:shadow-lg transition-all duration-300 text-center cursor-pointer"
               >
                 Comprar Créditos
-              </a>
+              </button>
             </div>
           </div>
         </div>
