@@ -1,7 +1,8 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { Check, Star, Trophy, Zap, Crown, Gift } from 'lucide-react';
+import { Check, Star, Trophy, Zap, Crown, Gift, ArrowLeft } from 'lucide-react';
+import { useRouter } from 'next/navigation';
 
 const plans = [
   {
@@ -92,6 +93,7 @@ const plans = [
 
 export default function PricingPage() {
   const [quizData, setQuizData] = useState(null);
+  const router = useRouter();
 
   useEffect(() => {
     // Carregar dados do quiz
@@ -101,19 +103,46 @@ export default function PricingPage() {
     }
   }, []);
 
-  const handlePlanClick = (kiwifyUrl) => {
+  const handlePlanClick = (plan: any) => {
+    // Salvar plano selecionado
+    localStorage.setItem('selectedPlan', JSON.stringify(plan));
+    
     // Abrir link externo da Kiwify em nova aba
-    window.open(kiwifyUrl, '_blank', 'noopener,noreferrer');
+    window.open(plan.kiwifyUrl, '_blank', 'noopener,noreferrer');
+    
+    // Redirecionar para dashboard após um delay
+    setTimeout(() => {
+      router.push('/dashboard');
+    }, 2000);
   };
 
   const handleCreditsClick = () => {
     // Abrir link de compra de créditos
     window.open('https://pay.kiwify.com.br/k88c9zn', '_blank', 'noopener,noreferrer');
+    
+    // Adicionar créditos ao usuário (simulação)
+    setTimeout(() => {
+      localStorage.setItem('userCredits', '100');
+      router.push('/dashboard');
+    }, 2000);
+  };
+
+  const handleBackToHome = () => {
+    router.push('/');
   };
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-[#1C0632] via-[#2D0A4A] to-[#FF4D22] py-12 px-4">
       <div className="max-w-7xl mx-auto">
+        {/* Back Button */}
+        <button
+          onClick={handleBackToHome}
+          className="mb-8 flex items-center space-x-2 text-white/80 hover:text-white transition-colors"
+        >
+          <ArrowLeft className="w-5 h-5" />
+          <span>Voltar ao início</span>
+        </button>
+
         {/* Header */}
         <div className="text-center mb-12">
           <h1 className="text-4xl md:text-5xl font-bold text-white mb-4">
@@ -200,7 +229,7 @@ export default function PricingPage() {
 
               {/* CTA Button */}
               <button
-                onClick={() => handlePlanClick(plan.kiwifyUrl)}
+                onClick={() => handlePlanClick(plan)}
                 className={`block w-full p-4 bg-gradient-to-r ${plan.color} text-white rounded-xl font-bold hover:shadow-lg transition-all duration-300 transform hover:scale-105 text-center cursor-pointer`}
               >
                 Obter meu plano

@@ -1,3 +1,23 @@
+import './globals.css'
+import type { Metadata } from 'next'
+
+export const metadata: Metadata = {
+  title: 'FitMind Body - Transforme seu corpo. Eleve sua mente.',
+  description: 'Sua jornada fitness premium começa aqui. Treinos personalizados, dietas sob medida e acompanhamento completo.',
+  keywords: 'fitness, treino, dieta, personalizado, calistenia, academia, saúde',
+  authors: [{ name: 'FitMind Body' }],
+  openGraph: {
+    title: 'FitMind Body - Transformação Fitness Personalizada',
+    description: 'Treinos e dietas personalizados para sua transformação completa',
+    type: 'website',
+    locale: 'pt_BR',
+  },
+  robots: {
+    index: true,
+    follow: true,
+  },
+}
+
 export default function RootLayout({
   children,
 }: {
@@ -34,7 +54,7 @@ export default function RootLayout({
         </noscript>
         {/* End Meta Pixel Code */}
       </head>
-      <body>
+      <body className="font-inter antialiased">
         {children}
       </body>
     </html>

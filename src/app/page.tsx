@@ -18,6 +18,10 @@ export default function HomePage() {
     }, 500);
   };
 
+  const handleGetPlan = () => {
+    router.push('/pricing');
+  };
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-[#1C0632] via-[#2D0A4A] to-[#FF4D22] relative overflow-hidden">
       {/* Background overlay for depth */}
@@ -100,46 +104,59 @@ export default function HomePage() {
               </div>
               <div className="flex items-center space-x-3 text-[#FFFFFF]/90">
                 <div className="w-2 h-2 bg-[#FF4D22] rounded-full"></div>
-                <span>Vídeos de treino gerados automaticamente</span>
+                <span>Dietas personalizadas para seu objetivo</span>
               </div>
               <div className="flex items-center space-x-3 text-[#FFFFFF]/90">
                 <div className="w-2 h-2 bg-[#FF4D22] rounded-full"></div>
-                <span>Notificações inteligentes de hidratação</span>
+                <span>Sistema de créditos para personalização</span>
               </div>
               <div className="flex items-center space-x-3 text-[#FFFFFF]/90">
                 <div className="w-2 h-2 bg-[#FF4D22] rounded-full"></div>
-                <span>Ranking global de usuários</span>
+                <span>Acompanhamento e análise de progresso</span>
               </div>
               <div className="flex items-center space-x-3 text-[#FFFFFF]/90">
                 <div className="w-2 h-2 bg-[#FF4D22] rounded-full"></div>
-                <span>Sistema de pontuação e conquistas</span>
+                <span>Planos flexíveis de assinatura</span>
               </div>
             </div>
           </div>
 
-          {/* CTA Button */}
-          <div className="relative">
-            <button
-              onClick={handleStartTransformation}
-              disabled={isLoading}
-              className="group relative bg-gradient-to-r from-[#FF4D22] to-[#FF6B47] text-[#FFFFFF] px-12 py-5 rounded-2xl font-bold text-xl hover:from-[#FF6B47] hover:to-[#FF4D22] transition-all duration-500 flex items-center justify-center space-x-3 mx-auto shadow-2xl shadow-[#FF4D22]/30 border border-white/10 hover:scale-105 hover:shadow-[#FF4D22]/50 disabled:opacity-50 disabled:cursor-not-allowed"
-            >
-              {isLoading ? (
-                <div className="animate-spin rounded-full h-6 w-6 border-b-2 border-white"></div>
-              ) : (
-                <>
-                  <span>Iniciar Minha Transformação</span>
-                  <ArrowRight className="w-6 h-6 group-hover:translate-x-1 transition-transform duration-300" />
-                </>
-              )}
+          {/* CTA Buttons */}
+          <div className="space-y-4">
+            <div className="relative">
+              <button
+                onClick={handleStartTransformation}
+                disabled={isLoading}
+                className="group relative bg-gradient-to-r from-[#FF4D22] to-[#FF6B47] text-[#FFFFFF] px-12 py-5 rounded-2xl font-bold text-xl hover:from-[#FF6B47] hover:to-[#FF4D22] transition-all duration-500 flex items-center justify-center space-x-3 mx-auto shadow-2xl shadow-[#FF4D22]/30 border border-white/10 hover:scale-105 hover:shadow-[#FF4D22]/50 disabled:opacity-50 disabled:cursor-not-allowed"
+              >
+                {isLoading ? (
+                  <div className="animate-spin rounded-full h-6 w-6 border-b-2 border-white"></div>
+                ) : (
+                  <>
+                    <span>Iniciar Minha Transformação</span>
+                    <ArrowRight className="w-6 h-6 group-hover:translate-x-1 transition-transform duration-300" />
+                  </>
+                )}
 
-              {/* Button glow effect */}
-              <div className="absolute inset-0 bg-gradient-to-r from-[#FF4D22] to-[#FF6B47] rounded-2xl blur-xl opacity-30 -z-10 group-hover:opacity-50 transition-opacity duration-500"></div>
-            </button>
+                {/* Button glow effect */}
+                <div className="absolute inset-0 bg-gradient-to-r from-[#FF4D22] to-[#FF6B47] rounded-2xl blur-xl opacity-30 -z-10 group-hover:opacity-50 transition-opacity duration-500"></div>
+              </button>
+            </div>
+
+            {/* Secondary CTA */}
+            <div className="relative">
+              <button
+                onClick={handleGetPlan}
+                className="group relative bg-white/10 backdrop-blur-sm text-[#FFFFFF] px-8 py-3 rounded-xl font-semibold text-lg hover:bg-white/20 transition-all duration-300 flex items-center justify-center space-x-2 mx-auto border border-white/20 hover:border-white/40"
+              >
+                <span>Ver Planos e Preços</span>
+                <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform duration-300" />
+              </button>
+            </div>
 
             {/* Subtle hint text */}
-            <p className="text-[#FFFFFF]/50 text-sm mt-4 font-light">
-              • Quiz personalizado • Treinos de calistenia • Ranking global • Notificações inteligentes
+            <p className="text-[#FFFFFF]/50 text-sm mt-6 font-light">
+              • Quiz personalizado • Treinos de calistenia • Sistema de créditos • Dietas personalizadas
             </p>
           </div>
 
